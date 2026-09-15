@@ -6,10 +6,13 @@
 
 Before you begin, ensure you have the following installed:
 
-- [ ] [e.g., Python 3.11+]
-- [ ] [e.g., Node.js 18+]
-- [ ] [e.g., Docker Desktop]
-- [ ] [e.g., An IBM Cloud account with watsonx.ai access]
+* [ ] Python 3.10+
+* [ ] Node.js 18+
+* [ ] npm 9+
+* [ ] Git
+* [ ] NVIDIA GPU with CUDA support recommended for deep learning inference/training
+* [ ] PostgreSQL 14+ (or a PostgreSQL-compatible deployment)
+* [ ] Optional: Docker and Docker Compose for containerized deployment
 
 ## Environment Variables
 
@@ -19,61 +22,242 @@ Copy `.env.example` to `.env` and fill in the values:
 cp .env.example .env
 ```
 
-| Variable | Description | Required |
-|---|---|---|
-| `WATSONX_API_KEY` | Your IBM watsonx.ai API key | Yes |
-| `WATSONX_PROJECT_ID` | Your watsonx.ai project ID | Yes |
-| `DATABASE_URL` | PostgreSQL connection string | Yes |
-| `SLACK_WEBHOOK_URL` | Slack webhook for alerts | No |
+| Variable       | Description                                              | Required |
+| -------------- | -------------------------------------------------------- | -------- |
+| `DATABASE_URL` | PostgreSQL connection string                             | Yes      |
+| `MODEL_DIR`    | Directory containing trained AI models and model weights | Yes      |
+| `DATA_DIR`     | Directory containing molecular and protein datasets      | Yes      |
+| `DEVICE`       | Compute device such as `cuda` or `cpu`                   | Yes      |
+| `API_HOST`     | FastAPI host address                                     | No       |
+| `API_PORT`     | FastAPI port                                             | No       |
+| `CORS_ORIGINS` | Allowed frontend origins                                 | No       |
+
+Example:
+
+```env
+DATABASE_URL=postgresql://username:password@localhost:5432/mmp12_ai
+MODEL_DIR=./models
+DATA_DIR=./data
+DEVICE=cuda
+API_HOST=0.0.0.0
+API_PORT=8000
+CORS_ORIGINS=http://localhost:3000
+```
 
 ## Installation
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/[your-org]/[your-repo].git
-cd [your-repo]
+git clone https://github.com/AbhayNath001/bob-ai-hackathon-Kakarot.git
+cd bob-ai-hackathon-Kakarot
 
-# 2. Install backend dependencies
-[your command — e.g.: pip install -r requirements.txt]
+# 2. Create and activate a Python virtual environment
+python -m venv .venv
 
-# 3. Install frontend dependencies (if applicable)
-[your command — e.g.: cd frontend && npm install]
+# Windows
+.venv\Scripts\activate
 
-# 4. Set up the database (if applicable)
-[your command — e.g.: python manage.py migrate]
+# Linux / macOS
+source .venv/bin/activate
+
+# 3. Upgrade pip
+python -m pip install --upgrade pip
+
+# 4. Install backend and AI/ML dependencies
+pip install -r requirements.txt
+
+# 5. Install frontend dependencies
+cd frontend
+npm install
+cd ..
+
+# 6. Configure environment variables
+cp .env.example .env
 ```
+
+### Core AI/ML Dependencies
+
+The backend environment should provide the packages required by the proposed pipeline, including:
+
+```text
+numpy
+pandas
+scikit-learn
+tensorflow
+torch
+rdkit
+deepchem
+networkx
+shap
+fastapi
+uvicorn
+psycopg2-binary
+python-dotenv
+```
+
+The exact versions should follow `requirements.txt` used by the repository.
+
+## Database Setup
+
+Create the PostgreSQL database before starting the backend:
+
+```bash
+createdb mmp12_ai
+```
+
+Or create it from the PostgreSQL shell:
+
+```sql
+CREATE DATABASE mmp12_ai;
+```
+
+Then configure:
+
+```env
+DATABASE_URL=postgresql://username:password@localhost:5432/mmp12_ai
+```
+
+If the project provides database initialization or migration scripts, execute them before starting the API.
+
+## Model and Data Setup
+
+Place trained model weights and preprocessing artifacts in the configured model directory:
+
+```text
+models/
+├── msr_arn/
+├── folding/
+├── docking/
+└── affinity/
+```
+
+Place required datasets and molecular inputs under:
+
+```text
+data/
+├── mmp12/
+├── selectivity/
+├── proteins/
+└── ligands/
+```
+
+The molecular-processing stage uses RDKit/DeepChem representations, while the MSR-ARN model operates on molecular feature representations for MMP-12 activity prediction. The structure module accepts protein sequence and ligand information for ligand-conditioned 3D prediction, followed by SE(3)-equivariant docking and affinity prediction.
 
 ## Running the Application
 
-```bash
-# Start the backend
-[your command — e.g.: uvicorn app.main:app --reload]
+Start the FastAPI backend:
 
-# Start the frontend (in a separate terminal, if applicable)
-[your command — e.g.: cd frontend && npm run dev]
+```bash
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-The application will be available at: `http://localhost:[PORT]`
+Start the React frontend in a separate terminal:
+
+```bash
+cd frontend
+npm run dev
+```
+
+The application will normally be available at:
+
+```text
+Frontend: http://localhost:3000
+Backend API: http://localhost:8000
+API Documentation: http://localhost:8000/docs
+```
+
+Use the actual port defined in the repository configuration when different.
+
+## Running the Prediction Pipeline
+
+For a molecular prediction workflow, provide the ligand SMILES and MMP-12 protein sequence through the frontend or API.
+
+The expected processing sequence is:
+
+```text
+SMILES / Molecular Library
+        ↓
+RDKit / DeepChem Preprocessing
+        ↓
+MSR-ARN Activity Prediction
+        ↓
+MMP-12 Selectivity Prediction
+        ↓
+Candidate Prioritization
+        ↓
+Ligand-Conditioned Diffusion-Transformer Folding
+        ↓
+Predicted 3D MMP-12 Structure
+        ↓
+SE(3)-Equivariant Docking
+        ↓
+Ligand-Aware Binding Affinity
+        ↓
+Final Candidate Ranking
+```
+
+The folding module integrates ligand information through cross-attention and uses iterative SE(3)-equivariant coordinate refinement, while the docking branch performs iterative pose refinement and affinity prediction.
 
 ## Running Tests
 
+Run backend tests with:
+
 ```bash
-[your test command — e.g.: pytest tests/ -v]
+pytest tests/ -v
 ```
 
-## Quick Demo (Optional)
-
-If you have a demo script or sample data to showcase the project quickly:
+Run frontend tests, when configured:
 
 ```bash
-[e.g.: python demo/seed_demo_data.py]
-[e.g.: open http://localhost:8000/demo]
+cd frontend
+npm test
+```
+
+For model validation, evaluate the individual modules independently before running the complete pipeline.
+
+## Quick Demo
+
+A minimal API health check can be performed using:
+
+```bash
+curl http://localhost:8000/health
+```
+
+Then open the frontend:
+
+```text
+http://localhost:3000
+```
+
+A typical demonstration should show:
+
+```text
+Molecular Input
+      ↓
+MMP-12 Activity
+      ↓
+Selectivity
+      ↓
+Predicted 3D Structure
+      ↓
+Docked Ligand Pose
+      ↓
+Binding Affinity
+      ↓
+Final Ranked Candidate
 ```
 
 ## Troubleshooting
 
-| Issue | Solution |
-|---|---|
-| [e.g., `ModuleNotFoundError`] | [e.g., Run `pip install -r requirements.txt` again] |
-| [e.g., Database connection refused] | [e.g., Ensure PostgreSQL is running: `docker compose up db`] |
-| [e.g., watsonx.ai 401 error] | [e.g., Check `WATSONX_API_KEY` in your `.env` file] |
+| Issue                             | Solution                                                                                                           |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `ModuleNotFoundError`             | Activate `.venv` and run `pip install -r requirements.txt` again.                                                  |
+| `RDKit` installation failure      | Use a supported Python environment or install RDKit through Conda if required by the target platform.              |
+| `CUDA is not available`           | Set `DEVICE=cpu` for testing or install a CUDA-compatible PyTorch/TensorFlow environment.                          |
+| FastAPI does not start            | Verify `app.main:app`, installed dependencies, `.env`, and the configured port.                                    |
+| PostgreSQL connection refused     | Ensure PostgreSQL is running and verify `DATABASE_URL`.                                                            |
+| Model weights not found           | Check `MODEL_DIR` and confirm all required trained weights are present.                                            |
+| Frontend cannot reach backend     | Verify that FastAPI is running and that `CORS_ORIGINS` matches the frontend URL.                                   |
+| Prediction input rejected         | Verify that the SMILES string is chemically valid and that the protein sequence contains valid amino-acid symbols. |
+| Out-of-memory error on GPU        | Reduce batch size, use a smaller inference workload, or run the prediction stage on a larger GPU.                  |
+| Slow structure/affinity inference | Use GPU acceleration and process candidate molecules in batches where supported.                                   |
