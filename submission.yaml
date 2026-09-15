@@ -9,29 +9,26 @@
 # =============================================================================
 
 team:
-  name: ""                             # REQUIRED — e.g., "Orion Squad"
-  track: ""                            # REQUIRED — one of: AI | DevOps | Sustainability | Open
+  name: "Kakarot"
+  track: "AI | Drug Discovery | Chemoinformatics"
   lead:
-    name: ""                           # REQUIRED — e.g., "Alice Chen"
-    email: ""                          # REQUIRED — e.g., "alice.chen@ibm.com"
+    name: "Abhay Nath"
+    email: "26pgce013@charusat.edu.in"
   members:
-    - name: ""                         # REQUIRED — Team member 1
-      email: ""
-    - name: ""                         # Add more members by copying the two lines above
-      email: ""
-    - name: ""
-      email: ""
+    - name: "Viren Patel"
+      email: "26pgce023@charusat.edu.in"
+    - name: "Zalak Patel"
+      email: "26pgce024@charusat.edu.in"
+    - name: "Bhavan Patel"
+      email: "26pgce032@charusat.edu.in"
 
 submission:
-  title: ""                            # REQUIRED — Project display name, e.g., "SmartOps Dashboard"
+  title: "Predicting selective MMP-12 inhibitors requires advanced deep learning for chemical-space-guided selectivity, 3D protein structure, and ligand-aware binding affinity prediction."
+  problem_statement: >
+    Selective MMP-12 inhibitor prediction remains challenging because MMP family members possess highly similar catalytic architectures, while molecular activity, selectivity, protein conformation, and ligand binding are strongly interdependent. Conventional ligand-based approaches can predict inhibitory activity and selectivity from molecular features, but they do not directly provide ligand-conditioned protein structures or structure-aware binding assessment. Conversely, conventional structure-based workflows generally treat protein prediction, docking, and affinity estimation as separate stages.
 
-  problem_statement: >                 # REQUIRED — 1-3 sentences. What problem? Who has it?
-    Replace this text with a concise description of the real-world problem
-    your project addresses and who experiences it.
-
-  solution_summary: >                  # REQUIRED — 1-3 sentences. What did you build?
-    Replace this text with a clear description of your solution
-    and how it addresses the problem above.
+  solution_summary: >
+    We propose an integrated AI-driven framework that addresses these limitations through three complementary components. First, the MSR-ARN (Multi-Scale Residual Attentive Regression Network) analyzes molecular fingerprints and chemical-space relationships using multi-scale residual convolutions, dilated gated convolutions, squeeze-and-excitation attention, self-attention, and feature modulation to predict MMP-12 inhibitory activity and identify selective inhibitors. Second, a diffusion-transformer-based ligand-aware folding module predicts 3D protein conformations conditioned on ligand information through pairwise attention and SE(3)-equivariant coordinate refinement. Third, an SE(3)-equivariant ligand-aware docking and affinity module iteratively refines ligand poses and predicts binding energy using geometric graph representations and differentiable optimization. Together, these components enable chemical-space-guided selectivity prediction, ligand-conditioned 3D structure prediction, and in-silico binding affinity scoring within a unified drug-discovery pipeline.
 
   key_features:                        # REQUIRED — List 3 to 5 specific features you implemented
     - ""                               # e.g., "Real-time pipeline anomaly detection using watsonx.ai"
