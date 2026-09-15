@@ -34,30 +34,30 @@ submission:
   title: "Predicting selective MMP-12 inhibitors requires advanced deep learning for chemical-space-guided selectivity, 3D protein structure, and ligand-aware binding affinity prediction."
 
   problem_statement: >
-Selective MMP-12 inhibitor prediction is challenging because closely related MMP
-isoforms share highly similar catalytic architectures, while molecular activity,
-selectivity, protein conformation, and ligand binding are strongly interdependent.
-Conventional ligand-based models can learn activity and selectivity from molecular
-representations, while structure-based workflows separately perform protein
-structure prediction, docking, and affinity estimation. This separation makes it
-difficult to connect chemical-space-guided candidate selection with ligand-aware
-structural and binding assessment in a single computational workflow.
+    Selective MMP-12 inhibitor prediction is challenging because closely related MMP
+    isoforms share highly similar catalytic architectures, while molecular activity,
+    selectivity, protein conformation, and ligand binding are strongly interdependent.
+    Conventional ligand-based models can learn activity and selectivity from molecular
+    representations, while structure-based workflows separately perform protein
+    structure prediction, docking, and affinity estimation. This separation makes it
+    difficult to connect chemical-space-guided candidate selection with ligand-aware
+    structural and binding assessment in a single computational workflow.
 
   solution_summary: >
-We propose an integrated AI-driven framework that combines three complementary
-prediction stages. First, the MSR-ARN (Multi-Scale Residual Attentive Regression
-Network) processes molecular representations using multi-scale residual
-convolution, dilated gated convolutions, squeeze-and-excitation attention,
-self-attention, and feature modulation to predict MMP-12 inhibitory activity and
-support selectivity prediction against related MMP isoforms. Second, a
-diffusion-transformer-based ligand-aware folding module combines protein sequence
-and ligand information through pairwise attention and iterative SE(3)-equivariant
-coordinate refinement to predict a ligand-conditioned 3D protein structure.
-Third, an SE(3)-equivariant graph-based docking and affinity module iteratively
-refines ligand poses and predicts ligand-aware binding energy from protein-ligand
-geometric features. The integrated workflow produces activity, selectivity,
-structure, pose, and affinity predictions for computational prioritization of
-selective MMP-12 inhibitor candidates.
+    We propose an integrated AI-driven framework that combines three complementary
+    prediction stages. First, the MSR-ARN (Multi-Scale Residual Attentive Regression
+    Network) processes molecular representations using multi-scale residual
+    convolution, dilated gated convolutions, squeeze-and-excitation attention,
+    self-attention, and feature modulation to predict MMP-12 inhibitory activity and
+    support selectivity prediction against related MMP isoforms. Second, a
+    diffusion-transformer-based ligand-aware folding module combines protein sequence
+    and ligand information through pairwise attention and iterative SE(3)-equivariant
+    coordinate refinement to predict a ligand-conditioned 3D protein structure.
+    Third, an SE(3)-equivariant graph-based docking and affinity module iteratively
+    refines ligand poses and predicts ligand-aware binding energy from protein-ligand
+    geometric features. The integrated workflow produces activity, selectivity,
+    structure, pose, and affinity predictions for computational prioritization of
+    selective MMP-12 inhibitor candidates.
 
   key_features:                        # REQUIRED — List 3 to 5 specific features you implemented
     - "Chemical-space-guided MMP-12 inhibitory activity prediction using the MSR-ARN deep learning framework"
@@ -74,25 +74,25 @@ selective MMP-12 inhibitor candidates.
     other: ["RDKit", "Mordred", "DeepChem", "SHAP", "NumPy", "Pandas", "NetworkX", "GitHub"]
 
   what_we_are_most_proud_of: >
-Our strongest contribution is the integration of two advanced deep-learning
-capabilities into a single drug-discovery workflow. The MSR-ARN model captures
-multi-scale molecular relationships for MMP-12 activity and selectivity
-prediction, while the ligand-aware diffusion-transformer and SE(3)-equivariant
-modules extend the workflow from chemical prediction to 3D protein structure,
-ligand pose refinement, and binding-affinity scoring. This creates a connected
-computational pipeline from chemical-space analysis to structure-aware candidate
-prioritization rather than treating each prediction task independently.
+    Our strongest contribution is the integration of two advanced deep-learning
+    capabilities into a single drug-discovery workflow. The MSR-ARN model captures
+    multi-scale molecular relationships for MMP-12 activity and selectivity
+    prediction, while the ligand-aware diffusion-transformer and SE(3)-equivariant
+    modules extend the workflow from chemical prediction to 3D protein structure,
+    ligand pose refinement, and binding-affinity scoring. This creates a connected
+    computational pipeline from chemical-space analysis to structure-aware candidate
+    prioritization rather than treating each prediction task independently.
 
   known_limitations: >
-The current implementation is primarily an in-silico prediction framework and
-does not replace experimental biochemical or structural validation. The
-available MMP-12 activity and selectivity datasets are moderate in size compared
-with large-scale foundation-model datasets, which may limit generalization to
-substantially different chemical scaffolds. The structure and affinity modules
-also require substantial computational resources for large-scale inference.
-Further validation on experimentally confirmed MMP-12 selective compounds and
-independent protein-ligand complexes is required before prospective laboratory
-application.
+    The current implementation is primarily an in-silico prediction framework and
+    does not replace experimental biochemical or structural validation. The
+    available MMP-12 activity and selectivity datasets are moderate in size compared
+    with large-scale foundation-model datasets, which may limit generalization to
+    substantially different chemical scaffolds. The structure and affinity modules
+    also require substantial computational resources for large-scale inference.
+    Further validation on experimentally confirmed MMP-12 selective compounds and
+    independent protein-ligand complexes is required before prospective laboratory
+    application.
 
 # =============================================================================
 
