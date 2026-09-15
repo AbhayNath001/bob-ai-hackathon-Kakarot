@@ -1,66 +1,125 @@
 # =============================================================================
+
 # HACKATHON SUBMISSION METADATA
+
 # =============================================================================
+
 # Instructions:
-#   - Fill in ALL required fields (marked with # REQUIRED)
-#   - Optional fields can be left as empty strings ""
-#   - Do NOT rename this file — the evaluation pipeline reads it by name
-#   - Use double quotes around all string values
+
+# - Fill in ALL required fields (marked with # REQUIRED)
+
+# - Optional fields can be left as empty strings ""
+
+# - Do NOT rename this file — the evaluation pipeline reads it by name
+
+# - Use double quotes around all string values
+
 # =============================================================================
 
 team:
-  name: "Kakarot"
-  track: "AI | Drug Discovery | Chemoinformatics"
-  lead:
-    name: "Abhay Nath"
-    email: "26pgce013@charusat.edu.in"
-  members:
-    - name: "Viren Patel"
-      email: "26pgce023@charusat.edu.in"
-    - name: "Zalak Patel"
-      email: "26pgce024@charusat.edu.in"
-    - name: "Bhavan Patel"
-      email: "26pgce032@charusat.edu.in"
+name: "Kakarot"
+track: "AI | Drug Discovery | Chemoinformatics"
+lead:
+name: "Abhay Nath"
+email: "[26pgce013@charusat.edu.in](mailto:26pgce013@charusat.edu.in)"
+members:
+- name: "Viren Patel"
+email: "[26pgce023@charusat.edu.in](mailto:26pgce023@charusat.edu.in)"
+- name: "Zalak Patel"
+email: "[26pgce024@charusat.edu.in](mailto:26pgce024@charusat.edu.in)"
+- name: "Bhavan Patel"
+email: "[26pgce032@charusat.edu.in](mailto:26pgce032@charusat.edu.in)"
 
 submission:
-  title: "Predicting selective MMP-12 inhibitors requires advanced deep learning for chemical-space-guided selectivity, 3D protein structure, and ligand-aware binding affinity prediction."
-  problem_statement: >
-    Selective MMP-12 inhibitor prediction remains challenging because MMP family members possess highly similar catalytic architectures, while molecular activity, selectivity, protein conformation, and ligand binding are strongly interdependent. Conventional ligand-based approaches can predict inhibitory activity and selectivity from molecular features, but they do not directly provide ligand-conditioned protein structures or structure-aware binding assessment. Conversely, conventional structure-based workflows generally treat protein prediction, docking, and affinity estimation as separate stages.
+title: "Predicting selective MMP-12 inhibitors requires advanced deep learning for chemical-space-guided selectivity, 3D protein structure, and ligand-aware binding affinity prediction."
+problem_statement: >
+Selective MMP-12 inhibitor prediction is challenging because closely related MMP
+isoforms share highly similar catalytic architectures, while molecular activity,
+selectivity, protein conformation, and ligand binding are strongly interdependent.
+Conventional ligand-based models can learn activity and selectivity from molecular
+representations, while structure-based workflows separately perform protein
+structure prediction, docking, and affinity estimation. This separation makes it
+difficult to connect chemical-space-guided candidate selection with ligand-aware
+structural and binding assessment in a single computational workflow.
 
-  solution_summary: >
-    We propose an integrated AI-driven framework that addresses these limitations through three complementary components. First, the MSR-ARN (Multi-Scale Residual Attentive Regression Network) analyzes molecular fingerprints and chemical-space relationships using multi-scale residual convolutions, dilated gated convolutions, squeeze-and-excitation attention, self-attention, and feature modulation to predict MMP-12 inhibitory activity and identify selective inhibitors. Second, a diffusion-transformer-based ligand-aware folding module predicts 3D protein conformations conditioned on ligand information through pairwise attention and SE(3)-equivariant coordinate refinement. Third, an SE(3)-equivariant ligand-aware docking and affinity module iteratively refines ligand poses and predicts binding energy using geometric graph representations and differentiable optimization. Together, these components enable chemical-space-guided selectivity prediction, ligand-conditioned 3D structure prediction, and in-silico binding affinity scoring within a unified drug-discovery pipeline.
+solution_summary: >
+We propose an integrated AI-driven framework that combines three complementary
+prediction stages. First, the MSR-ARN (Multi-Scale Residual Attentive Regression
+Network) processes molecular representations using multi-scale residual
+convolution, dilated gated convolutions, squeeze-and-excitation attention,
+self-attention, and feature modulation to predict MMP-12 inhibitory activity and
+support selectivity prediction against related MMP isoforms. Second, a
+diffusion-transformer-based ligand-aware folding module combines protein sequence
+and ligand information through pairwise attention and iterative SE(3)-equivariant
+coordinate refinement to predict a ligand-conditioned 3D protein structure.
+Third, an SE(3)-equivariant graph-based docking and affinity module iteratively
+refines ligand poses and predicts ligand-aware binding energy from protein-ligand
+geometric features. The integrated workflow produces activity, selectivity,
+structure, pose, and affinity predictions for computational prioritization of
+selective MMP-12 inhibitor candidates.
 
-  key_features:                        # REQUIRED — List 3 to 5 specific features you implemented
-    - ""                               # e.g., "Real-time pipeline anomaly detection using watsonx.ai"
-    - ""
-    - ""
-    - ""                               # optional 4th
-    - ""                               # optional 5th
+key_features:                        # REQUIRED — List 3 to 5 specific features you implemented
+- "Chemical-space-guided MMP-12 inhibitory activity prediction using the MSR-ARN deep learning framework"
+- "MMP-12 selectivity prediction against related MMP isoforms using molecular activity features"
+- "Ligand-conditioned 3D protein structure prediction using diffusion-style transformer modelling and SE(3)-equivariant coordinate refinement"
+- "SE(3)-equivariant ligand pose refinement and ligand-aware binding affinity prediction"
+- "Integrated candidate ranking with molecular feature explainability and structural visualization"
 
-  tech_stack:
-    languages: []                      # REQUIRED — e.g., ["Python", "TypeScript"]
-    frameworks: []                     # e.g., ["FastAPI", "React"]
-    ibm_technologies: []               # e.g., ["watsonx.ai", "IBM Bob", "IBM Cloud Functions"]
-    databases: []                      # e.g., ["PostgreSQL", "Redis"]
-    other: []                          # e.g., ["Docker", "GitHub Actions", "Slack API"]
+tech_stack:
+languages:
+- "Python"
+frameworks:
+- "TensorFlow"
+- "Keras"
+- "PyTorch"
+- "Scikit-learn"
+ibm_technologies:
+- "IBM Bob"
+databases: []
+other:
+- "RDKit"
+- "Mordred"
+- "DeepChem"
+- "SHAP"
+- "NumPy"
+- "Pandas"
+- "NetworkX"
+- "GitHub"
 
-  what_we_are_most_proud_of: >         # Optional but recommended — guides judges to your best work
-    Replace with what aspect of the submission you consider strongest
-    and want judges to pay special attention to.
+what_we_are_most_proud_of: >
+Our strongest contribution is the integration of two advanced deep-learning
+capabilities into a single drug-discovery workflow. The MSR-ARN model captures
+multi-scale molecular relationships for MMP-12 activity and selectivity
+prediction, while the ligand-aware diffusion-transformer and SE(3)-equivariant
+modules extend the workflow from chemical prediction to 3D protein structure,
+ligand pose refinement, and binding-affinity scoring. This creates a connected
+computational pipeline from chemical-space analysis to structure-aware candidate
+prioritization rather than treating each prediction task independently.
 
-  known_limitations: >                 # Optional but recommended — be honest about gaps
-    Replace with any known limitations, incomplete features,
-    or shortcuts taken due to time constraints.
+known_limitations: >
+The current implementation is primarily an in-silico prediction framework and
+does not replace experimental biochemical or structural validation. The
+available MMP-12 activity and selectivity datasets are moderate in size compared
+with large-scale foundation-model datasets, which may limit generalization to
+substantially different chemical scaffolds. The structure and affinity modules
+also require substantial computational resources for large-scale inference.
+Further validation on experimentally confirmed MMP-12 selective compounds and
+independent protein-ligand complexes is required before prospective laboratory
+application.
 
 # =============================================================================
+
 # ARTIFACT LOCATIONS
+
 # These paths are relative to the repo root. Only change if you moved files.
+
 # =============================================================================
+
 artifacts:
-  source_code: "src/"
-  setup_guide: "docs/setup-guide.md"
-  architecture_doc: "docs/architecture.md"
-  demo_video: "demo/demo-video-link.txt"   # URL to hosted video (YouTube, Loom, Box)
-  live_demo: "demo/live-demo-url.txt"      # URL to deployed demo (optional)
-  screenshots: "demo/screenshots/"
-  presentation: "presentation/"
+source_code: "src/"
+setup_guide: "docs/setup-guide.md"
+architecture_doc: "docs/architecture.md"
+demo_video: "demo/demo-video-link.txt"
+live_demo: "demo/live-demo-url.txt"
+screenshots: "demo/screenshots/"
+presentation: "presentation/"
