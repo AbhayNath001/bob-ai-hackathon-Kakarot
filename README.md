@@ -284,6 +284,7 @@ The implemented docking pipeline uses geometric graph processing and iterative c
 | --------------- | ---------------------------------------------------------- |
 | 🖼️ Screenshots | [See `demo/screenshots/`](demo/screenshots/)               |
 | 📊 Presentation | [See `presentation/`](presentation/)                       |
+| 📹 Demo Video | [See `demo/demo-video-link.txt`](demo/demo-video-link.txt)                               |
 
 ---
 
