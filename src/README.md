@@ -10,7 +10,8 @@ The source code is organized according to the functional stages of the integrate
 src/
 ├── data/
 │   ├── preprocessing.py
-│   └── feature_processing.py
+│   └── feature_scaler.pkl
+    └── feature_columns.pkl
 │
 ├── models/
 │   ├── msr_arn/
@@ -25,21 +26,6 @@ src/
 │   │
 │   └── docking_affinity/
 │       └── complete_sample.py
-│
-├── inference/
-│   ├── activity_prediction.py
-│   ├── selectivity_prediction.py
-│   ├── structure_prediction.py
-│   └── affinity_prediction.py
-│
-├── explainability/
-│   └── shap_analysis.py
-│
-├── api/
-│   └── main.py
-│
-└── notebooks/
-    └── experiments/
 ```
 
 ### Data / AI Components
@@ -84,9 +70,6 @@ README.md
 src/
 ├── data/
 ├── models/
-├── inference/
-├── explainability/
-└── api/
 
 models/
 ├── feature_columns.pkl
